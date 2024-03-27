@@ -69,6 +69,8 @@ def user_logout(request):
 
 def add_to_cart(request, id):
     user = request.user
+    if user.is_authenticated == False:
+        return redirect("login")
     book_price = int(Book.objects.get(id=id).borrowing_price)
     user_balance = Balance.objects.get(user=user).balance
     if user_balance < book_price:
