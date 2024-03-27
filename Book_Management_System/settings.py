@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-v_!dwzqx4ke*axdx_t63uxcw49hs^g5@k1#vb88uk39c)(u)5u
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = [" https://boi-ghor-nb40.onrender.com", "https://*.127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://boi-ghor-nb40.onrender.com", "https://*.127.0.0.1"]
 
 
 # Application definition
