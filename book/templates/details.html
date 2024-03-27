@@ -1,0 +1,37 @@
+{% extends "base.html" %} {%load crispy_forms_tags%} {%load static%} <br />
+{%block link%}
+<link rel="stylesheet" href="{% static 'reg.css' %}" />
+{%endblock%} {%block content%}
+<div class="container pt-3">
+  <div class="image">
+    <img src="{{book.image.url}}" alt="X" />
+  </div>
+  <div class="info w-50">
+    <h2>Title : {{book.title}}</h2>
+    <h2>Borrowing Price : {{book.borrowing_price}} Taka</h2>
+    <h2>Category : {{book.category}}</h2>
+    <h5>Description : {{book.description}}</h5>
+  </div>
+</div>
+
+<div class="card m-3">
+  <div class="card-body">
+    <form method="post">
+      <h1>Add Comment</h1>
+      {% csrf_token %} {{comment_form|crispy}}
+      <button class="btn btn-warning">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div class="card m-3">
+  <h3>Total Comments : {{comments|length}}</h3>
+  {%for cmnt in comments%}
+  <div class="card-body border m-2">
+    <div class="cmnt">{{cmnt.name}} , {{cmnt.time}}</div>
+    <div class="cmnt">{{cmnt.Comment_Box}}</div>
+  </div>
+  {%endfor%}
+</div>
+
+{%endblock%}

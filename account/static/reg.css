@@ -1,0 +1,39 @@
+.form{
+    width: 80%;
+    border: 1px solid wheat;
+    padding: 5%;
+    margin-top:10% ;
+    margin-bottom: 10%;
+    background-color: wheat;
+    border-radius: 10px;
+}
+
+.form_cont{
+    margin-left: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.name{
+    color: red;
+    font-weight: bold;
+}
+
+.nb{
+    align-items: center;
+}
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* margin-bottom: 20px; */
+    
+}
+
+.cmnt{
+    border: 1px solid mediumslateblue;
+    background-color: mediumslateblue;
+    padding: 8px;
+}

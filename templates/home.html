@@ -1,0 +1,44 @@
+{% extends "base.html" %} {%load static%} {%block link%}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{%endblock%} {%block content%}
+<div class="body">
+  <div class="header">
+    <div class="img">
+      <img
+        src="{% static 'images/book_cover.jpeg' %}"
+        alt="No Image"
+        srcset=""
+      />
+    </div>
+
+    <div class="art_container">
+      <h3 class="title">Welcome To <span>BOI GHOR</span></h3>
+    </div>
+  </div>
+
+<div class="demo_book_container">
+    <h2 class="top_title">Top Rated Books</h2>
+    <div class="show_demo_book d-flex flex-wrap justify-content-center ">
+        {%for top in tops%}
+        <div class="col-sm-3 mx-3">
+            <div class="card h-50" style="width: 18rem ">
+              <img src="{{top.image.url}}" class="card-img-top h-50" alt="X" />
+              <div class="card-body">
+                <p class="card-text">
+                  <h3>Title : {{top.title}}</h3>
+                  <h4>Borrow Price : {{top.borrowing_price}} Taka</h4>
+                  
+                   <div class="d-flex justify-content-between mt-2">
+                    <a href="{%url "details" top.id%}" class="btn btn-primary">Details</a>
+                    <a href="{% url "add_to_cart" top.id %}" class="btn btn-info">Borrow</a>
+                   </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        {%endfor%}
+      </div>
+    </div>
+</div>
+
+{%endblock%}

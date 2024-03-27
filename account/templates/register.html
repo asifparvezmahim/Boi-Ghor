@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {%block title%}
+<title>Registration Section</title>
+{%endblock%} {%load static%} <br />
+{%block link%}
+<link rel="stylesheet" href="{% static 'reg.css' %}" />
+{%endblock%} {% block content %}
+<div class="form_cont">
+  <div class="form">
+    <form style="margin: auto" method="post">
+      <h1>Confirm Your Registration</h1>
+      <h6>To Be a Member of <span class="name">Online Learning</span></h6>
+      {% csrf_token %} {{form | crispy}}
+      <button class="btn btn-warning mb-5">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

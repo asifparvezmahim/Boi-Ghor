@@ -1,0 +1,36 @@
+.pro_head{
+    margin-left: 40%;
+}
+
+.main{
+    display: flex;
+    column-gap: 50px;
+    /* grid-template-columns: auto auto ; */
+    margin-top: 50px;
+   
+}
+
+.price{
+    font-weight: bold;
+}
+.side_bar{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 20%;
+    background-color: pink;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+
+.courses_enrolled{
+    width: auto;
+    width: 80%;
+    height: 420px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    
+}
