@@ -60,7 +60,7 @@
           <p class="card-text">{{book.description | truncatewords:10}}</p>
            <div class="d-flex justify-content-between mt-2">
             <a href="{%url "details" book.id%}" class="btn btn-primary">Details</a>
-            <a href="{% url "add_to_cart" book.id %}" class="btn btn-info">Borrow</a>
+            <a href="{% url "make_a_bill" book.id %}" class="btn btn-info">Make a Bill</a>
            </div>
         </p>
       </div>

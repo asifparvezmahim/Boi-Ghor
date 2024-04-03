@@ -25,13 +25,6 @@
   {%endif%}
 {%endfor%}
 <div class="profile">
-  <div class="pro_head">
-    <h1></h1>
-    {%if user.is_superuser %}
-    <h3>Role : Admin</h3>
-    {%endif%}
-  </div>
-
   <div class="main px-3">
     <div class="side_bar w-25">
       <h4>USER INFO</h4>
@@ -43,8 +36,8 @@
       <h6>LAST NAME : {{user.last_name}}</h6>
       <h6>Email : {{user.email}}</h6>
       <br />
-      {% comment %} <i class="fa-solid fa-gear"></i>
-      <a href="" class="text-decoration-none">Edit Profile Settings</a> {% endcomment %}
+      <i class="fa-solid fa-gear"></i>
+      <a href="{%url "info_change"%}" class="text-decoration-none">Edit Profile Settings</a>
     </div>
 
     <div class="courses_enrolled w-50">

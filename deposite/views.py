@@ -5,9 +5,11 @@ from balance.models import Balance
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def depo_money(request):
     if request.method == "POST":
         depo_form = forms.DepoForm(request.POST)

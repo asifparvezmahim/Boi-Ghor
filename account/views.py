@@ -7,14 +7,20 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    SetPasswordForm,
+)
 from balance.models import Balance
 from deposite.models import Deposite_Amount
 from cart.models import Cart
 from book.models import Book
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def profile(request):
     user = request.user.id
     balance = Balance.objects.get(user=request.user).balance
@@ -62,33 +68,56 @@ def user_login(request):
         return render(request, "login.html", {"form": form})
 
 
+@login_required
 def user_logout(request):
     logout(request)
     return redirect("homepage")
 
 
-def add_to_cart(request, id):
+@login_required
+def make_bill(request, id):
+    user_first_name = request.user.first_name
+    user_last_name = request.user.last_name
+    user_email = request.user.email
+    book_name = Book.objects.get(id=id).title
+    book_price = Book.objects.get(id=id).borrowing_price
+    print(user_first_name, user_last_name, user_email, book_name, book_price)
+    return render(
+        request,
+        "bill.html",
+        {
+            "uf_name": user_first_name,
+            "ul_name": user_last_name,
+            "uemail": user_email,
+            "bname": book_name,
+            "bprice": book_price,
+            "bid": id,
+        },
+    )
+
+
+@login_required
+def confirm_purch(request, id):
     user = request.user
     if user.is_authenticated == False:
         return redirect("login")
     book_price = int(Book.objects.get(id=id).borrowing_price)
     user_balance = Balance.objects.get(user=user).balance
     if user_balance < book_price:
-        messages.error(
-            request, "Sorry !! You Have Not Sufficient Balance to Buy This Book"
-        )
+        messages.error(request, "Sorry You Do Not HAve Sufficient Balance")
     else:
         messages.success(
-            request, "Congratulations !!! Successfully Borrowing is Completed"
+            request, "Congratulations !!! Successully Borrowing is Completed"
         )
         book = Book.objects.get(id=id)
         cart = Cart.objects.create(user=user, book=book)
         cart.save()
         new_balance = user_balance - book_price
         Balance.objects.filter(user=user).update(balance=new_balance)
-    return redirect("all_books")
+    return redirect("profile")
 
 
+@login_required
 def return_book(request, id):
     user = request.user
     book_price = int(Cart.objects.get(id=id).book.borrowing_price)
@@ -101,3 +130,17 @@ def return_book(request, id):
         "Book Returned Successfully and The Book Borrowing Amount is Added to Your Account ",
     )
     return redirect("profile")
+
+
+@login_required
+def passChange(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.cleaned_data["user"])
+            return redirect("prpfile")
+
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, "infoChange.html", {"form": form})

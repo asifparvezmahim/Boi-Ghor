@@ -1,0 +1,22 @@
+{% extends "base.html" %} {%block title%}
+<title>Bill Page</title>
+{%endblock%} {%load static%} {%block link%}
+<link rel="stylesheet" href="{% static 'bill.css' %}" />
+{%endblock%}{%block content%}
+<div class="bill_container">
+  <h4 class="bill_title">Bill Box</h4>
+  ----------------------------------------------
+  <br />
+
+  <h5>User Name:{{uf_name}} {{ul_name}}</h5>
+  <h5>User Email : {{uemail}}</h5>
+  <br />
+  <h5>Book ID :{{bid}}</h5>
+  <h5>Book Name : {{bname}}</h5>
+  <h5>Book Price : {{bprice}} /-</h5>
+  --------------------------------------
+  <h5>Total : {{bprice}} /-</h5>
+  {% comment %} <button class="cnfrm_btn">Confirm</button> {% endcomment %}
+  <a href="{%url "confirm_purch" bid%}" class="cnfrm_btn">Confirm</a>
+</div>
+{%endblock%}

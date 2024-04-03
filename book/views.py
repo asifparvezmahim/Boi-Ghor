@@ -7,12 +7,11 @@ from category.models import Category
 
 # Create your views here.
 def all_books(request, category_slug=None):
+    user = request.user
     all_books = Book.objects.all()
     if category_slug is not None:
         category = Category.objects.get(slug=category_slug)
         all_books = Book.objects.filter(category=category)
-        print("Category: ", category)
-        print("Filtered: ", all_books)
     categories = Category.objects.all()
     return render(request, "show_book.html", {"books": all_books, "cats": categories})
 
